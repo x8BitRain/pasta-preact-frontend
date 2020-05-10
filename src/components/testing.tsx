@@ -1,64 +1,95 @@
-/* eslint-disable */
-import { Component } from "preact";
-// import { consumer, makePaste } from "../util/websocket";
+/* tslint:disable */
+import { Component, h } from "preact";
+import store from "../util/Store";
 import cable from "actioncable";
+import "../style/pasteInput.scss";
 
 class Testing extends Component {
   constructor() {
     super();
     this.state = {
-      uid: "cf76822f-b97f-4946-8bfe-84ced8717e2b",
-      token: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2Y3NjgyMmYtYjk3Zi00OTQ2LThiZmUtODRjZWQ4NzE3ZTJiIiwiZXhwIjoxNTg5MTE2ODc1fQ.wL8HAQkHFX8Sg31Um3JXTKO4AmK3Fz8LZkTyghJG82w",
-      pasteParams: {
-        command: "message",
-        action: "speak",
-        data: {
-          content: "PASTA USER 1",
-          content_type: "text",
-          device: "pixel2xl"
-        }
-      }
+      uid: "b9498d14-cb86-4c3c-9424-375cdfc43f52",
+      token:
+        "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYjk0OThkMTQtY2I4Ni00YzNjLTk0MjQtMzc1Y2RmYzQzZjUyIiwiZXhwIjoxNTg5MjA2NTE3fQ.gtlV2TXmAQTfNcxLm1I0c5feBMA_yglnq0Xocr8m3Ho",
+      pasteText: "",
+      pastes: []
     };
+    this.socket = cable.createConsumer(
+      `ws://localhost:3334/live?uid=${this.state.uid}&token=${this.state.token}`
+    );
   }
 
-  openSocket = () => {
-    this.socket = cable.createConsumer(
-      `ws://localhost:3000/live/?uid=${this.state.uid}&token=${this.state.token}`
-    );
-    console.log("CREATED SOCKET")
-  }
+  storeTest = () => {
+    console.log(store.getState());
+    console.log(this.state);
+  };
 
   subscribeConsumer = () => {
-    this.consumer = this.socket.subscriptions.create({
-      channel: "PasteChannel",
-      room_id: "9a446ad3-1c34-43f2-9f93-dcd74de5059c"
+    this.consumer = this.socket.subscriptions.create(
+      {
+        channel: "PasteChannel",
+        room_id: "52c923b1-efeb-472c-901b-5296e1b7f3ac"
+      },
+      {
+        connected: function() {
+          console.log("connected!");
+        },
+        disconnected: function() {
+          console.log("disconnected!");
+        },
+        received: data => {
+          console.log("connected!", data);
+          this.setState({
+            pastes: [
+              ...this.state.pastes,
+              [data.content.content, data.content.created_at]
+            ]
+          });
+        }
+      }
+    );
+  };
+
+  makePaste = () => {
+    const pasteParams = {
+      command: "message",
+      action: "create",
+      data: {
+        content: this.state.pasteText,
+        content_type: "string",
+        device: "nexus6p"
+      }
+    };
+    this.consumer.send(pasteParams);
+  };
+
+  handlePaste = event => {
+    this.setState({
+      pasteText: event.target.value
     });
   };
 
+  componentDidMount() {}
 
-  makePaste = () => {
-    this.consumer.send(this.state.pasteParams);
-  }
-
-
-  componentDidMount() {
-    this.timer = setInterval(() => {
-      this.setState({ time: Date.now() });
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
+  componentWillUnmount() {}
 
   render() {
-    let time = new Date(this.state.time).toLocaleTimeString();
     return (
       <fragment>
-        <span>{time}</span>
-        <button onclick={this.openSocket}>OPENSOCKET</button>
-        <button onclick={this.subscribeConsumer}>SUBSCRIBE</button>
-        <button onclick={this.makePaste}>MAKE PASTE</button>
+        <button onClick={this.subscribeConsumer}>SUBSCRIBE</button>
+        <button onClick={this.makePaste}>MAKE PASTE</button>
+        <button onClick={this.storeTest}>GET FROM STATE</button>
+        <div id="paste-input">
+          <ul>
+            {this.state.pastes.map((value, index) => (
+              <li key={index}>
+                {value[0]} - {value[1]}
+              </li>
+            ))}
+          </ul>
+          <input onInput={this.handlePaste} type="text" />
+          <button onClick={this.makePaste}>Paste</button>
+        </div>
       </fragment>
     );
   }
