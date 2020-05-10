@@ -11,21 +11,17 @@ class Testing extends Component {
       token: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2Y3NjgyMmYtYjk3Zi00OTQ2LThiZmUtODRjZWQ4NzE3ZTJiIiwiZXhwIjoxNTg5MTE2ODc1fQ.wL8HAQkHFX8Sg31Um3JXTKO4AmK3Fz8LZkTyghJG82w",
       pasteParams: {
         command: "message",
-        action: "speak",
+        action: "create",
         data: {
-          content: "PASTA USER 1",
-          content_type: "text",
-          device: "pixel2xl"
+          content: "Another Brick in the wall",
+          content_type: "string",
+          device: "nexus6p"
         }
       }
     };
-  }
-
-  openSocket = () => {
     this.socket = cable.createConsumer(
       `ws://localhost:3000/live/?uid=${this.state.uid}&token=${this.state.token}`
     );
-    console.log("CREATED SOCKET")
   }
 
   subscribeConsumer = () => {
@@ -56,7 +52,6 @@ class Testing extends Component {
     return (
       <fragment>
         <span>{time}</span>
-        <button onclick={this.openSocket}>OPENSOCKET</button>
         <button onclick={this.subscribeConsumer}>SUBSCRIBE</button>
         <button onclick={this.makePaste}>MAKE PASTE</button>
       </fragment>
