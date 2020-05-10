@@ -7,8 +7,8 @@ class Testing extends Component {
   constructor() {
     super();
     this.state = {
-      uid: "cf76822f-b97f-4946-8bfe-84ced8717e2b",
-      token: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2Y3NjgyMmYtYjk3Zi00OTQ2LThiZmUtODRjZWQ4NzE3ZTJiIiwiZXhwIjoxNTg5MTE2ODc1fQ.wL8HAQkHFX8Sg31Um3JXTKO4AmK3Fz8LZkTyghJG82w",
+      uid: "b9498d14-cb86-4c3c-9424-375cdfc43f52",
+      token: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYjk0OThkMTQtY2I4Ni00YzNjLTk0MjQtMzc1Y2RmYzQzZjUyIiwiZXhwIjoxNTg5MjA2NTE3fQ.gtlV2TXmAQTfNcxLm1I0c5feBMA_yglnq0Xocr8m3Ho",
       pasteParams: {
         command: "message",
         action: "create",
@@ -20,14 +20,14 @@ class Testing extends Component {
       }
     };
     this.socket = cable.createConsumer(
-      `ws://localhost:3000/live/?uid=${this.state.uid}&token=${this.state.token}`
+      `ws://localhost:3334/live?uid=${this.state.uid}&token=${this.state.token}`
     );
   }
 
   subscribeConsumer = () => {
     this.consumer = this.socket.subscriptions.create({
       channel: "PasteChannel",
-      room_id: "9a446ad3-1c34-43f2-9f93-dcd74de5059c"
+      room_id: "52c923b1-efeb-472c-901b-5296e1b7f3ac"
     });
   };
 
