@@ -1,6 +1,10 @@
 /* eslint-disable */
-import { FunctionalComponent, h } from "preact";
+import { Component, h } from "preact";
+import { Provider } from 'redux-zero/preact';
+import store from '../util/Store';
+import PasteInput from './PasteInput';
 import Testing from "./testing";
+import Login from "./Login";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 if ((module as any).hot) {
@@ -8,15 +12,35 @@ if ((module as any).hot) {
   require("preact/debug");
 }
 
-const App: FunctionalComponent = () => {
-	let currentUrl: string;
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
+  handleLogin = (e) => {
+    // Change stuff in here when logged in successfully
+    console.log(e)
+  }
+
+  componentDidMount() {
+  }
+
+  componentWillUnmount() {
+  }
+
+  render() {
     return (
+      <Provider store={store}>
         <div id="app">
-            <p>TEST</p>
+            <Login onLoginSuccess={this.handleLogin}/>
+            <p>TEST BUTTONS</p>
 						<Testing />
+            {/* <PasteInput/> */}
         </div>
+      </Provider>
     );
+  }
 };
 
 export default App;
