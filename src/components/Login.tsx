@@ -1,8 +1,9 @@
 /* eslint:disable */
 import { Component, h } from "preact";
 import { Connect } from "redux-zero/preact";
-import { loginEndpoint } from "../util/endpoints";
+import endpoints from "../util/endpoints";
 import store from "../util/Store";
+import checkLogin from "../util/checkLogin";
 import "../style/login.scss";
 
 class Login extends Component {
@@ -15,21 +16,22 @@ class Login extends Component {
     };
   }
 
-  loginHandler = () => {
-    const raw = JSON.stringify({
+  loginHandler = e => {
+    e.preventDefault();
+    const loginDetails = JSON.stringify({
       user: {
         email: this.state.email,
         password: this.state.password
       }
     });
 
-    fetch(loginEndpoint, {
+    fetch(endpoints.login, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: raw
+      body: loginDetails
     })
       .then(response => {
         if (!response.ok) {
@@ -44,6 +46,7 @@ class Login extends Component {
         store.setState({
           token: result.token,
           email: result.email,
+          userId: result.userId,
           loggedIn: true
         });
         this.setState(
@@ -51,7 +54,7 @@ class Login extends Component {
             loginResult: "Logged in ✔️"
           },
           () => {
-            this.handleLogin();
+            this.loginCallback();
           }
         );
       })
@@ -60,15 +63,34 @@ class Login extends Component {
       });
   };
 
-  handleLogin = () => {
+  loginCallback = () => {
     this.props.onLoginSuccess("logged in!");
   };
 
   componentDidMount() {
-    // document.querySelector("#login-box > input[type=text]:nth-child(4)").value =
-    //   "meru@btr.pm";
-    // document.querySelector("#login-box > input[type=text]:nth-child(8)").value =
-    //   "makanbakso123";
+    // If token is present, verify authenticity by getting current user from api.
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      checkLogin(token)
+        .then(data => {
+          console.log(data.data);
+          // instead check response against typescript structure perhaps.
+          if (data.data.id) {
+            this.setState({
+              loginResult: "Logged in ✔️"
+            });
+            store.setState({
+              token: token,
+              loggedIn: true
+            });
+          }
+        })
+        .catch(reason => console.log(reason.message));
+    } else {
+      store.setState({
+        loggedIn: false
+      });
+    }
   }
 
   componentWillUnmount() {}
@@ -76,32 +98,42 @@ class Login extends Component {
   render() {
     return (
       <div id="login-box">
-        <br />
-        <label htmlFor="email">Email</label>
-        <br />
-        <input
-          onInput={event => this.setState({ email: event.target.value })}
-          type="text"
-          name="email"
-        />
-        <br />
-        <label htmlFor="password">Password</label>
-        <br />
-        <input
-          onInput={event => this.setState({ password: event.target.value })}
-          type="text"
-          name="password"
-        />
-        <p>{this.state.loginResult}</p>
-        <button onClick={this.loginHandler}>Login</button>
-        <button
-          onClick={() => {
-            console.log(this.state);
+        <form
+          onSubmit={e => {
+            e.preventDefault();
           }}
         >
-          log creds in state
-        </button>
-        <button onClick={this.handleLogin}>callback</button>
+          <br />
+          <label htmlFor="email">Email</label>
+          <br />
+          <input
+            onInput={event => this.setState({ email: event.target.value })}
+            value={this.state.email}
+            autoComplete="username"
+            type="text"
+            name="email"
+          />
+          <br />
+          <label htmlFor="password">Password</label>
+          <br />
+          <input
+            onInput={event => this.setState({ password: event.target.value })}
+            value={this.state.password}
+            autoComplete="password"
+            type="password"
+            name="password"
+          />
+          <p>{this.state.loginResult}</p>
+          <button onClick={this.loginHandler}>Login</button>
+          <button
+            onClick={() => {
+              console.log(this.state);
+            }}
+          >
+            log creds in state
+          </button>
+          <button onClick={this.handleLogin}>callback</button>
+        </form>
       </div>
     );
   }

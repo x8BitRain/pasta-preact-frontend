@@ -8,9 +8,9 @@ class Testing extends Component {
   constructor() {
     super();
     this.state = {
-      uid: "b9498d14-cb86-4c3c-9424-375cdfc43f52",
+      uid: "cf76822f-b97f-4946-8bfe-84ced8717e2b",
       token:
-        "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYjk0OThkMTQtY2I4Ni00YzNjLTk0MjQtMzc1Y2RmYzQzZjUyIiwiZXhwIjoxNTg5MjA2NTE3fQ.gtlV2TXmAQTfNcxLm1I0c5feBMA_yglnq0Xocr8m3Ho",
+        "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2Y3NjgyMmYtYjk3Zi00OTQ2LThiZmUtODRjZWQ4NzE3ZTJiIiwiZXhwIjoxNTg5NTYwODE5fQ.4hLeyM4DlhEamoGJTulyhEfM6MijqQHcOF51UQSCKsk",
       pasteText: "",
       pastes: []
     };
@@ -20,15 +20,15 @@ class Testing extends Component {
   }
 
   storeTest = () => {
-    console.log(store.getState());
-    console.log(this.state);
+    console.log("store: \n", store.getState());
+    console.log("state: \n", this.state);
   };
 
   subscribeConsumer = () => {
     this.consumer = this.socket.subscriptions.create(
       {
         channel: "PasteChannel",
-        room_id: "52c923b1-efeb-472c-901b-5296e1b7f3ac"
+        room_id: "9a446ad3-1c34-43f2-9f93-dcd74de5059c"
       },
       {
         connected: function() {
@@ -78,7 +78,7 @@ class Testing extends Component {
       <fragment>
         <button onClick={this.subscribeConsumer}>SUBSCRIBE</button>
         <button onClick={this.makePaste}>MAKE PASTE</button>
-        <button onClick={this.storeTest}>GET FROM STATE</button>
+        <button onClick={this.storeTest}>GET FROM STATE + STORE</button>
         <div id="paste-input">
           <ul>
             {this.state.pastes.map((value, index) => (
