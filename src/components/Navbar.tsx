@@ -28,10 +28,10 @@ class Navbar extends Component {
         {({ loggedIn, isLive }) => (
           <div id="navbar">
             <div id="logo">
-              <b>PASTA</b>
+              <h2>PASTA</h2>
             </div>
             <div id="status">
-              <p onClick={this.openLogin}>Login</p>
+              {!loggedIn ? <p onClick={this.openLogin}>Login</p> : <p></p>}
               <LiveIndicator isLive={isLive}/>
             </div>
           </div>

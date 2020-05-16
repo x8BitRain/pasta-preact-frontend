@@ -7,8 +7,16 @@ import "../style/pasteInput.scss";
 class Testing extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      enabled: false
+    };
   }
+
+  // develop = () => {
+  //   this.setState({
+  //     enabled: !this.state.enabled
+  //   })
+  // }
 
   storeTest = () => {
     console.log("store: \n", store.getState());
@@ -35,9 +43,7 @@ class Testing extends Component {
   render() {
     return (
       <fragment>
-        <button onClick={this.storeTest}>GET FROM STATE + STORE</button>
-        <button onClick={this.doThing}>DO THING</button>
-        <h1 id="temp"></h1>
+        <button style="position:absolute;right:0px;" onClick={this.storeTest}>.</button>
       </fragment>
     );
   }

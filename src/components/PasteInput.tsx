@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Component, h, createRef } from "preact";
 import store from '../util/Store';
-import PasteSocket from '../util/Websocket'
+import PasteSocket from '../util/Websocket';
 import '../style/pasteInput.scss';
 let pasteInputValue = "";
 class PasteInput extends Component {
@@ -83,9 +83,10 @@ class PasteInput extends Component {
             onInput={this.handlePasteInput}
             ref={this.pasteInput}
             type="text"
+            autoFocus
           />
           <button onClick={this.sendPasteManual}>Paste</button>
-          <button onClick={this.doThing}>do thing</button>
+          {/* <button onClick={this.doThing}>do thing</button> */}
         </div>
       </form>
     );
