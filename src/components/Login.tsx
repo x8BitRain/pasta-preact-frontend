@@ -1,9 +1,9 @@
-/* eslint:disable */
 import { Component, h } from "preact";
 import { Connect } from "redux-zero/preact";
 import endpoints from "../util/endpoints";
 import store from "../util/Store";
 import checkLogin from "../util/checkLogin";
+import PasteSocket from "../util/Websocket";
 import "../style/login.scss";
 
 class Login extends Component {
@@ -72,16 +72,27 @@ class Login extends Component {
     const token = localStorage.getItem("authToken");
     if (token) {
       checkLogin(token)
-        .then(data => {
-          console.log(data.data);
+        .then(response => {
+          const data = response.data;
+          console.log(data);
           // instead check response against typescript structure perhaps.
-          if (data.data.id) {
+          if (data.id) {
+            // Init websocket connection & subscribe.
+            const socket = new PasteSocket(
+              data.id,
+              token,
+              data.attributes.rooms[0].id
+            );
+            socket.subscribe();
             this.setState({
               loginResult: "Logged in ✔️"
             });
             store.setState({
               token: token,
-              loggedIn: true
+              uid: data.id,
+              loggedIn: true,
+              rooms: data.attributes.rooms[0].id,
+              pasteSocket: socket
             });
           }
         })
@@ -132,7 +143,7 @@ class Login extends Component {
           >
             log creds in state
           </button>
-          <button onClick={this.handleLogin}>callback</button>
+          <button onClick={this.loginCallback}>callback</button>
         </form>
       </div>
     );
