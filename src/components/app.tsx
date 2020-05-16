@@ -3,6 +3,7 @@ import { Component, h } from "preact";
 import { Provider } from 'redux-zero/preact';
 import store from '../util/Store';
 import PasteInput from './PasteInput';
+import PasteList from "./PasteList";
 import Testing from "./testing";
 import Login from "./Login";
 
@@ -36,7 +37,8 @@ class App extends Component {
             <Login onLoginSuccess={this.handleLogin}/>
             <p>TEST BUTTONS</p>
 						<Testing />
-            {/* <PasteInput/> */}
+            <PasteList />
+            <PasteInput/>
         </div>
       </Provider>
     );
