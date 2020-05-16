@@ -2,7 +2,12 @@ import * as createStore from "redux-zero";
 
 const initialState = {
   email: "",
-  token: ""
+  token: "",
+  uid: "",
+  rooms: "",
+  loggedIn: "",
+  pasteSocket: "",
+  pastes: []
 };
 
 const store = createStore(initialState);
