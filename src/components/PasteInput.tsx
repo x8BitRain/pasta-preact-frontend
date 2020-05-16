@@ -1,30 +1,37 @@
 /* eslint-disable */
-import { Component, h } from "preact";
+import { Component, h, createRef } from "preact";
 import store from '../util/Store';
-import PasteSocket from '../util/Websocket'
+import PasteSocket from '../util/Websocket';
 import '../style/pasteInput.scss';
 let pasteInputValue = "";
 class PasteInput extends Component {
+  pasteInput = createRef();
   constructor(props) {
     super(props);
     this.state = {
-      pasteSocket: undefined
+      pasteSocket: undefined,
     };
     this.sendPasteManual = this.sendPasteManual.bind(this);
     this.handlePasteInput = this.handlePasteInput.bind(this);
     this.doThing = this.doThing.bind(this)
   }
 
+  clearInput = () => {
+    this.pasteInput.current.value = '';
+    pasteInputValue = '';
+  }
   
   checkWebsocketInstance = (data) => {
     if (this.state.pasteSocket === undefined) {
       this.setState({
         pasteSocket: store.getState().pasteSocket
       }, () => {
-        this.state.pasteSocket.send(data);
+        data !== '' ? this.state.pasteSocket.send(data) : console.log('no empty pastes pls');
+        this.clearInput();
       })
     } else {
-      this.state.pasteSocket.send(data);
+      data !== '' ? this.state.pasteSocket.send(data) : console.log('no empty pastes pls');
+      this.clearInput();
     }
   }
   
@@ -45,15 +52,15 @@ class PasteInput extends Component {
   handlePasteInput(e) {
     e.preventDefault();
     pasteInputValue = e.target.value;
-    console.log(pasteInputValue);
-    //e.stopPropagation();
-    //console.log(e);
     switch (e.type) {
       case "submit":
         this.sendPasteManual();
       break;
       case "input":
-        e.inputType === "insertFromPaste" ? this.sendPastePaste() : null;
+        if (e.inputType === "insertFromPaste") {
+          this.sendPastePaste();
+          console.log(this.pasteInput);
+        }
       break;
       case "paste":
         this.sendPastePaste();
@@ -63,21 +70,9 @@ class PasteInput extends Component {
       }
   }
 
-
-  
-  componentDidMount() {
-    // const pasteInput = document.querySelector("#pasteInput");
-    // pasteInput.addEventListener('paste', (event) => {
-    //   let paste = (event.clipboardData || window.clipboardData).getData('text');
-    //   console.log(paste);
-    // });
-  }
+  componentDidMount() {}
   
   componentWillUnmount() {}
-
-  // INSTANTIATE PASTESOCKET AND STORE IN STATE IF NOT YET DONE
-
-
 
   render() {
     return (
@@ -85,11 +80,13 @@ class PasteInput extends Component {
         <div id="paste-input">
           <input
             id="pasteInput"
-            onInput={this.handlePasteInput} 
+            onInput={this.handlePasteInput}
+            ref={this.pasteInput}
             type="text"
+            autoFocus
           />
-          <button onclick={this.sendPasteManual}>Paste</button>
-          <button onclick={this.doThing}>do thing</button>
+          <button onClick={this.sendPasteManual}>Paste</button>
+          {/* <button onClick={this.doThing}>do thing</button> */}
         </div>
       </form>
     );
