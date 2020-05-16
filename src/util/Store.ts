@@ -6,8 +6,10 @@ const initialState = {
   uid: "",
   rooms: "",
   loggedIn: "",
+  showLogin: false,
+  isLive: false,
   pasteSocket: "",
-  pastes: []
+  pastes: ""
 };
 
 const store = createStore(initialState);
