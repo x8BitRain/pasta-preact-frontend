@@ -11,8 +11,8 @@ class Navbar extends Component {
     this.state = {};
   }
 
-  openLogin = () => {
-    const showLogin = store.getState({}).showLogin
+  openLogin = async () => {
+    const showLogin = store.getState({}).showLogin;
     store.setState({
       showLogin: !showLogin
     })
@@ -31,7 +31,7 @@ class Navbar extends Component {
               <h2>PASTA</h2>
             </div>
             <div id="status">
-              {!loggedIn ? <p onClick={this.openLogin}>Login</p> : <p></p>}
+              {!loggedIn ? <p id="login-button" onClick={this.openLogin}>Login</p> : <p></p>}
               <LiveIndicator isLive={isLive}/>
             </div>
           </div>
