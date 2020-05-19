@@ -21,18 +21,24 @@ class PasteSocket {
       {
         connected: function() {
           console.log("connected!");
+          store.setState({
+            isLive: true
+          })
         },
         disconnected: function() {
           console.log("disconnected!");
+          store.setState({
+            isLive: false
+          })
         },
         received: data => {
           this.pastes = store.getState().pastes;
-          console.log("Got a Paste!", data.content.content);
+          console.log("Got a Paste!", data);
           store.setState({
-            pastes: [
-              ...this.pastes,
-              [data.content.content, data.content.created_at]
-            ]
+            pastes: [...this.pastes, {
+              attributes: data.content,
+              id: data.content.id
+            }]
           });
         }
       }
