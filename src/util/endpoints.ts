@@ -1,5 +1,5 @@
-// @ts-nocheck
-const isProd = true;
+const isProd = window.location.href.includes("app");
+
 const endpoint = isProd ? "https://api.pasta.to" : "http://localhost:3000";
 
 const endpoints = {
