@@ -1,7 +1,14 @@
+// @ts-nocheck
+const isProd = true;
+const endpoint = isProd ? "https://api.pasta.to" : "http://localhost:3000";
+
 const endpoints = {
-  login: "http://localhost:3000/v1/tokens",
-  getCurrentUser: "http://localhost:3000/v1/users/",
-  getPastes: "http://localhost:3000/v1/pastes"
+  login: endpoint + "/v1/tokens",
+  getCurrentUser: endpoint + "/v1/users/",
+  getPastes: endpoint + "/v1/pastes",
+  websocket: isProd
+    ? "wss://api.pasta.to:3334/live"
+    : "ws://localhost:3334/live"
 };
 
 export default endpoints;
