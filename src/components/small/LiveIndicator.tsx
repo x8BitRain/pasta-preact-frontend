@@ -1,7 +1,7 @@
 import { h } from "preact";
 import "../../style/small/liveIndicator.scss";
 
-const LiveIndicator = isLive => {
+const LiveIndicator = (isLive: { isLive: any }) => {
   return (
     <div class="ring-container">
       <div

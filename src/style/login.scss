@@ -1,10 +1,100 @@
+$login-border: 1px solid #d4d4d4;
+$active-button: 1px solid #9b9b9b;
+
 #login-box {
-  border: 2px dashed red;
-  width: fit-content;
+  opacity: 1;
+  animation: fade 0.1s 1;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(50, 50, 93, 0.11), 0 1px 0px rgba(0, 0, 0, 0.08);
+  width: 25rem;
   height: fit-content;
   position: absolute;
+  border-radius: 7px;
   right: 0px;
   top: 56px;
   margin: 10px;
-  padding: 10px;
+  padding: 15px;
+  transition: all 0.4s ease-in-out;
+  #remember-me {
+    display:flex;
+    flex:1.5;
+    height:2.6rem;
+    align-items: center;
+    justify-content: center;
+    border: $login-border;
+    border-left:none;
+    border-radius: 0px 7px 7px 0px;;
+    margin-top:5px;
+    input[type="checkbox"] {
+      margin: 2px 8px 2px -5px;
+    }
+  }
+  #login-remember {
+    display:flex;
+  }
+  button {
+    flex:2;
+    width:100%;
+    cursor: grabbing;
+    background-color: white;
+    border: $login-border;
+    border-radius: 7px 0px 0px 7px;
+    height: 2.6rem;
+    margin-top:5px;
+    outline:none;
+    &:active {
+      border: $active-button;
+    }
+  }
+  input[type="email"], input[type="password"] {
+    outline:none;
+    font-size:1em;
+    height:2.9rem;
+    padding-left:15px;
+    width:100%;
+    &:focus {
+      // border:
+    }
+  }
+  input[type="email"] {
+    border: $login-border;
+    border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+  }
+  input[type="password"] {
+    border-top:1px solid #d4d4d4;
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    margin-bottom:5px;
+    border: {
+      top: none;
+      left: $login-border;
+      right: $login-border;
+      bottom: $login-border;
+    }
+  }
+}
+
+@keyframes fade {
+  0% { opacity: 0 }
+  100% { opacity: 1 }
+}
+
+@media (max-width: 768px) {
+  #login-box {
+    width: 95%;
+    input[type="email"], input[type="password"] {
+      width:100%;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  #login-remember {
+    display: block !important;
+    #remember-me {
+      border: $login-border;
+      border-radius: 7px;
+    }
+  }
 }

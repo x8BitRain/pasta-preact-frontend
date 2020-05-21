@@ -1,7 +1,9 @@
-import { Component, h, Fragment } from "preact";
+import { Component, h, Fragment, createRef } from "preact";
 import { Connect } from "redux-zero/preact";
 import endpoints from "../util/endpoints";
 import store from "../util/Store";
+import delay from "../util/delay";
+//import anime from 'animejs/lib/anime.es.js';
 import checkLogin from "../util/checkLogin";
 import PasteSocket from "../util/Websocket";
 import getPastes from "../util/getPastes";
@@ -9,12 +11,14 @@ import "../style/login.scss";
 
 const mapToProps = ({ showLogin }) => ({ showLogin });
 class Login extends Component {
+  loginBox = createRef();
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       password: "",
-      loginResult: ""
+      loginResult: "Login",
+      loginStyle: "#444444"
     };
   }
 
@@ -36,7 +40,8 @@ class Login extends Component {
             );
             socket.subscribe();
             this.setState({
-              loginResult: "Logged in ✔️"
+              loginResult: "Logged in ✔️",
+              loginStyle: "green"
             });
             store.setState({
               token: token,
@@ -45,6 +50,7 @@ class Login extends Component {
               rooms: data.attributes.rooms[0].id,
               pasteSocket: socket
             });
+            this.hideLogin();
           }
         })
         .then(() => {
@@ -84,9 +90,20 @@ class Login extends Component {
     })
       .then(response => {
         if (!response.ok) {
-          this.setState({
-            loginResult: response.statusText
-          });
+          this.setState(
+            {
+              loginResult: "Incorrect Login",
+              loginStyle: "red"
+            },
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            async () => {
+              await delay(1500);
+              this.setState({
+                loginResult: "Login",
+                loginStyle: "#444444"
+              });
+            }
+          );
         }
         return response.json();
       })
@@ -104,8 +121,20 @@ class Login extends Component {
     this.props.onLoginSuccess("logged in!");
   };
 
+  hideLogin = async () => {
+    await delay(850);
+    this.loginBox.current.style.opacity = 0;
+    await delay(1100);
+    store.setState({
+      showLogin: false
+    });
+  };
+
   componentDidMount() {
     this.afterLogin();
+    // store.setState({
+    //   loginBox: this.loginBox
+    // })
   }
 
   componentWillUnmount() {}
@@ -116,26 +145,22 @@ class Login extends Component {
         {({ showLogin }) => (
           <Fragment>
             {showLogin ? (
-              <div id="login-box">
+              <div ref={this.loginBox} id="login-box">
                 <form
                   onSubmit={e => {
                     e.preventDefault();
                   }}
                 >
-                  <br />
-                  <label htmlFor="email">Email</label>
-                  <br />
                   <input
                     onInput={event =>
                       this.setState({ email: event.target.value })
                     }
                     value={this.state.email}
                     autoComplete="username"
-                    type="text"
+                    placeholder="Email"
+                    type="email"
                     name="email"
                   />
-                  <br />
-                  <label htmlFor="password">Password</label>
                   <br />
                   <input
                     onInput={event =>
@@ -143,19 +168,26 @@ class Login extends Component {
                     }
                     value={this.state.password}
                     autoComplete="password"
+                    placeholder="Password"
                     type="password"
                     name="password"
                   />
-                  <p>{this.state.loginResult}</p>
-                  <button onClick={this.loginHandler}>Login</button>
-                  <button
-                    onClick={() => {
-                      console.log(this.state);
-                    }}
-                  >
-                    log creds in state
-                  </button>
-                  <button onClick={this.loginCallback}>callback</button>
+                  <div id="login-remember">
+                    <button onClick={this.loginHandler}>
+                      {this.state.loginResult !== "" ? (
+                        <p style={"color: " + this.state.loginStyle}>
+                          {this.state.loginResult}
+                        </p>
+                      ) : (
+                        "Login"
+                      )}
+                    </button>
+                    <div id="remember-me">
+                      <input type="checkbox" name="remember" checked />
+                      <label htmlFor="remember">Remember me</label>
+                    </div>
+                  </div>
+                  {/* <button onClick={this.loginCallback}>callback</button> */}
                 </form>
               </div>
             ) : null}

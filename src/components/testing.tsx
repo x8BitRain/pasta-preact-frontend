@@ -43,7 +43,7 @@ class Testing extends Component {
   render() {
     return (
       <fragment>
-        <button style="position:absolute;right:0px;" onClick={this.storeTest}>.</button>
+        <button style="position:absolute;left:0px;height:2px;width:2px;" onClick={this.storeTest}></button>
       </fragment>
     );
   }

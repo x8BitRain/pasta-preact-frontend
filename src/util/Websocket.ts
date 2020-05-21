@@ -1,6 +1,6 @@
-import store from './Store';
+import store from "./Store";
 import cable from "actioncable";
-
+import endpoints from "./endpoints";
 class PasteSocket {
   constructor(uid, token, roomId) {
     this.uid = uid;
@@ -8,7 +8,7 @@ class PasteSocket {
     this.roomId = roomId;
     this.pastes = store.getState().pastes;
     this.socket = cable.createConsumer(
-      `ws://localhost:3334/live?uid=${this.uid}&token=${this.token}`
+      `${endpoints.websocket}?uid=${this.uid}&token=${this.token}`
     );
   }
 

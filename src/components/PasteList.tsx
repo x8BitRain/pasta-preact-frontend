@@ -1,9 +1,9 @@
 import { Connect } from "redux-zero/preact";
 import { Component, h, createRef } from "preact";
 import copy from "clipboard-copy";
+import delay from "../util/delay";
 import "../style/pasteList.scss";
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const mapToProps = ({ pastes }) => ({ pastes });
 class PasteList extends Component {
   pasteList = createRef();
