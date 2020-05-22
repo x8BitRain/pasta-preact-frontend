@@ -29,7 +29,7 @@ class Login extends Component {
       checkLogin(token)
         .then(response => {
           const data = response.data;
-          console.log(data);
+          // console.log(data);
           // instead check response against typescript structure perhaps.
           if (data.id) {
             // Init websocket connection & subscribe.
@@ -63,10 +63,14 @@ class Login extends Component {
             })
             .catch(reason => console.log(reason.message));
         })
-        .catch(reason => console.log(reason.message));
+        .catch(reason => {
+          console.log(reason.message);
+          this.showLogin();
+        });
     } else {
       store.setState({
-        loggedIn: false
+        loggedIn: false,
+        showLogin: true
       });
     }
   };
@@ -121,9 +125,15 @@ class Login extends Component {
     this.props.onLoginSuccess("logged in!");
   };
 
+  showLogin = () => {
+    store.setState({
+      showLogin: true
+    });
+  };
+
   hideLogin = async () => {
     await delay(850);
-    this.loginBox.current.style.opacity = 0;
+    this.loginBox.current ? (this.loginBox.current.style.opacity = 0) : null;
     await delay(1100);
     store.setState({
       showLogin: false

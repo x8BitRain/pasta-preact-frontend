@@ -5,6 +5,9 @@
   .paste-container {
     display:flex;
   }
+  #input-block {
+    height: 93px; // Keeps pastes pushed above input
+  }
   .copy-confirm {
     width: 100px;
     display: flex;

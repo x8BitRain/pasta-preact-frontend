@@ -1,9 +1,9 @@
 /* tslint:disable */
 import { Component, h } from "preact";
 import store from "../util/Store";
-import cable from "actioncable";
+//import cable from "actioncable";
 import "../style/pasteInput.scss";
-
+const isProd = window.location.href.includes("app");
 class Testing extends Component {
   constructor() {
     super();
@@ -43,7 +43,12 @@ class Testing extends Component {
   render() {
     return (
       <fragment>
-        <button style="position:absolute;left:0px;height:2px;width:2px;" onClick={this.storeTest}></button>
+        {isProd ? null : (
+          <button
+            style="position:absolute;left:0px;height:2px;width:2px;"
+            onClick={this.storeTest}
+          ></button>
+        )}
       </fragment>
     );
   }
