@@ -7,7 +7,7 @@ const endpoints = {
   getCurrentUser: endpoint + "/v1/users/",
   getPastes: endpoint + "/v1/pastes",
   websocket: isProd
-    ? "wss://api.pasta.to:3334/live"
+    ? "wss://api.pasta.to:8443/live"
     : "ws://localhost:3334/live"
 };
 
