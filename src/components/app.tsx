@@ -40,9 +40,8 @@ class App extends Component {
           <Testing />
           <main id="main-container">
             <PasteList />
-            <div style="height:200px"></div>
-            <PasteInput/>
           </main>
+          <PasteInput/>
         </div>
       </Provider>
     );

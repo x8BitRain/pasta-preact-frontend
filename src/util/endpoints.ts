@@ -8,7 +8,7 @@ const endpoints = {
   getPastes: endpoint + "/v1/pastes",
   websocket: isProd
     ? "wss://api.pasta.to:8443/live"
-    : "ws://localhost:3334/live"
+    : "ws://localhost:8443/live"
 };
 
 export default endpoints;
