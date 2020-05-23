@@ -2,6 +2,7 @@
 import { Component, h } from "preact";
 import store from "../util/Store";
 //import cable from "actioncable";
+import { getClipboardContents } from "../util/clipboardSync";
 import "../style/pasteInput.scss";
 const isProd = window.location.href.includes("app");
 class Testing extends Component {
@@ -23,16 +24,6 @@ class Testing extends Component {
   };
 
   doThing = () => {
-    const temp = document.querySelector("#temp");
-    async function getClipboardContents() {
-      try {
-        const text = await navigator.clipboard.readText();
-        console.log('Pasted content: ', text);
-        temp.innerHTML = "yer clipboard: " + text;
-      } catch (err) {
-        console.error('Failed to read clipboard contents: ', err);
-      }
-    }
     getClipboardContents();
   };
 
@@ -44,10 +35,10 @@ class Testing extends Component {
     return (
       <fragment>
         {isProd ? null : (
-          <button
-            style="position:absolute;left:0px;height:2px;width:2px;"
-            onClick={this.storeTest}
-          ></button>
+          <div style="position:absolute;left:0px;height:2px;width:2px;">
+            <button onClick={this.storeTest}></button>
+            {/* <button onClick={this.doThing}>do thing</button> */}
+          </div>
         )}
       </fragment>
     );

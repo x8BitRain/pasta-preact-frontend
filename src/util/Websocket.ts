@@ -1,4 +1,5 @@
 import store from "./Store";
+import { clipboardWrite } from "./clipboardSync";
 import cable from "actioncable";
 import endpoints from "./endpoints";
 class PasteSocket {
@@ -32,7 +33,7 @@ class PasteSocket {
           })
         },
         received: data => {
-          this.pastes = store.getState().pastes;
+          this.pastes = store.getState().pastes; 
           console.log("Got a Paste!", data);
           store.setState({
             pastes: [...this.pastes, {
@@ -40,6 +41,9 @@ class PasteSocket {
               id: data.content.id
             }]
           });
+          if (store.getState().instaCopy) {
+            clipboardWrite(data.content.content);
+          }
         }
       }
     );

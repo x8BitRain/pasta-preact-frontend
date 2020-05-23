@@ -2,9 +2,15 @@ import { Connect } from "redux-zero/preact";
 import { Component, h } from "preact";
 import store from "../util/Store";
 import LiveIndicator from "./small/LiveIndicator";
+import SidePanel from "./SidePanel";
+import Copied from "./small/Copied";
 import "../style/navbar.scss";
 
-const mapToProps = ({ loggedIn, isLive }) => ({ loggedIn, isLive });
+const mapToProps = ({ loggedIn, isLive, wroteIncomingPaste }) => ({
+  loggedIn,
+  isLive,
+  wroteIncomingPaste
+});
 class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -15,8 +21,8 @@ class Navbar extends Component {
     const showLogin = store.getState({}).showLogin;
     store.setState({
       showLogin: !showLogin
-    })
-  }
+    });
+  };
 
   componentDidMount() {}
 
@@ -25,11 +31,15 @@ class Navbar extends Component {
   render() {
     return (
       <Connect mapToProps={mapToProps}>
-        {({ loggedIn, isLive }) => (
+        {({ loggedIn, isLive, wroteIncomingPaste }) => (
           <div id="navbar">
             <div id="logo">
               <h2>PASTA</h2>
             </div>
+            <div id="copied-status">
+              {wroteIncomingPaste ? <Copied /> : null}
+            </div>
+            <SidePanel />
             <div id="status">
               {!loggedIn ? (
                 <p id="login-button" onClick={this.openLogin}>
@@ -38,7 +48,7 @@ class Navbar extends Component {
               ) : (
                 <p></p>
               )}
-              <LiveIndicator isLive={isLive}/>
+              <LiveIndicator isLive={isLive} />
             </div>
           </div>
         )}

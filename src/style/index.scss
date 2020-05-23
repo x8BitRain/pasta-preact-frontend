@@ -53,6 +53,7 @@ body {
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
+  overscroll-behavior-x: none;
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
@@ -116,8 +117,20 @@ body {
   overflow: hidden;
   #main-container {
     height: 100%;
+    //overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    #pusher {
+      height: 5cm;
+    }
   }
   #paste-list-container {
     height:100%;
+  }
+}
+
+@media (max-width: 768px) {
+  #pusher {
+    height: 6cm !important;
   }
 }

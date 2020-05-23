@@ -38,10 +38,12 @@ class App extends Component {
           <Navbar/>
           <Login onLoginSuccess={this.handleLogin}/>
           <Testing />
-          <main id="main-container">
+          <div id="main-container">
             <PasteList />
-          </main>
-          <PasteInput/>
+            <div id="pusher">
+              <PasteInput/>
+            </div>
+          </div>
         </div>
       </Provider>
     );
