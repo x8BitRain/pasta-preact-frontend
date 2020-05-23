@@ -1,15 +1,10 @@
 #paste-list {
-  padding: 0px 30px 50px 30px;
   height: 100%;
   overflow-y: auto;
-  padding: 0px 30px 9rem 30px;
+  padding: 0px 30px 1rem 30px;
   .paste-container {
-    display:flex;
+    display: flex;
   }
-  // #input-block {
-  //   height: 95px;
-  //   margin-bottom: 30px; // Keeps pastes pushed above input
-  // }
   .paste {
     margin: 20px 15px 20px 0px;
     padding: 10px 22px 10px 22px;
