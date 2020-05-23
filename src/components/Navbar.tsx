@@ -2,7 +2,6 @@ import { Connect } from "redux-zero/preact";
 import { Component, h } from "preact";
 import store from "../util/Store";
 import LiveIndicator from "./small/LiveIndicator";
-import SidePanel from "./SidePanel";
 import Copied from "./small/Copied";
 import "../style/navbar.scss";
 
@@ -39,7 +38,6 @@ class Navbar extends Component {
             <div id="copied-status">
               {wroteIncomingPaste ? <Copied /> : null}
             </div>
-            <SidePanel />
             <div id="status">
               {!loggedIn ? (
                 <p id="login-button" onClick={this.openLogin}>

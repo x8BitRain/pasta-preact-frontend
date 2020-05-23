@@ -1,5 +1,5 @@
-//const isProd = window.location.href.includes("app");
-const isProd = true;
+const isProd = window.location.href.includes("app");
+//const isProd = true;
 
 const endpoint = isProd ? "https://api.pasta.to" : "http://localhost:3000";
 
