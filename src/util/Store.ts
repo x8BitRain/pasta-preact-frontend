@@ -9,7 +9,9 @@ const initialState = {
   showLogin: false,
   isLive: false,
   pasteSocket: "",
-  pastes: ""
+  pastes: "",
+  instaCopy: false,
+  wroteIncomingPaste: false
 };
 
 const store = createStore(initialState);

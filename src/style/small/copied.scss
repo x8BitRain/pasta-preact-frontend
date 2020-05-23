@@ -1,0 +1,15 @@
+.copy-confirm-nav {
+  animation: fadeOut 2s;
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 2s linear;
+  width: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  // transition: all .15s ease;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1 }
+  100% { opacity: 0 }
+}

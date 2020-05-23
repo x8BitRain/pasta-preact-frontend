@@ -47,7 +47,7 @@ class PasteList extends Component {
                     <div onClick={this.copyPaste} class="paste">
                       <h3>{value.attributes.content}</h3>
                     </div>
-                    <div class="copy-confirm hide">
+                    <div className="copy-confirm hide">
                       <p>Copied</p>
                       <img src="../assets/icons/check.svg" />
                     </div>

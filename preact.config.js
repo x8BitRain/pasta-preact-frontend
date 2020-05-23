@@ -1,4 +1,5 @@
 import { resolve } from "path";
+const fs = eval('require("fs")')
 
 export default {
     /**
@@ -30,5 +31,13 @@ export default {
             "src",
             "index"
         );
+
+        // config.devServer = {
+        //     https: {
+        //         key: fs.readFileSync('/path/to/server.key'),
+        //         cert: fs.readFileSync('/path/to/server.crt'),
+        //         ca: fs.readFileSync('/path/to/ca.pem'),
+        //     }
+        // }
     }
 };
