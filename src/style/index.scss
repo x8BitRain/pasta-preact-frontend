@@ -115,6 +115,15 @@ body {
   height: 100%;
   width:100%;
   overflow: hidden;
+  #main-container {
+    height: 100%;
+    //overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    #pusher {
+      height: 10.5rem !important;
+    }
+  }
   #paste-list-container {
     height:100%;
   }
