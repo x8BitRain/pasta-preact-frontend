@@ -54,7 +54,7 @@ class PasteList extends Component {
                   </div>
                 ))
               : null}
-            <div id="input-block"></div>
+            {/* <div id="input-block"></div> */}
           </div>
         )}
       </Connect>
