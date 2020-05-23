@@ -26,10 +26,12 @@
     "preact-markup": "^2.0.0",
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1",
-    "redux-zero": "^5.1.4"
+    "redux-zero": "^5.1.4",
+    "slideout": "^1.0.1"
   },
   "devDependencies": {
     "@types/jest": "^25.1.2",
+    "@types/slideout": "^0.1.19",
     "@types/webpack-env": "^1.15.1",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
