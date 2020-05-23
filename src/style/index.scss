@@ -121,10 +121,16 @@ body {
     display: flex;
     flex-direction: column;
     #pusher {
-      height: 6cm !important;
+      height: 5cm;
     }
   }
   #paste-list-container {
     height:100%;
+  }
+}
+
+@media (max-width: 768px) {
+  #pusher {
+    height: 6cm !important;
   }
 }
