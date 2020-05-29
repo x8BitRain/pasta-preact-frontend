@@ -6,14 +6,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  #logo-menu-container {
+    display:flex;
+    //pointer-events:none;
+    cursor: pointer;
+    #logo, #menu-btn {
+      margin-left:25px;
+    }
+    #menu-btn {
+      align-self: center;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  }
   #login-button {
-    cursor: grabbing;
+    cursor: pointer;
     &:hover {
       text-decoration: underline;
     }
-  }
-  #logo {
-    margin-left:30px;
   }
   #status {
     margin-right: 15px;

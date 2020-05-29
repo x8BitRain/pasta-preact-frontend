@@ -2,6 +2,7 @@ import { Connect } from "redux-zero/preact";
 import { Component, h, createRef } from "preact";
 import copy from "clipboard-copy";
 import delay from "../util/delay";
+//import store from "../util/Store";
 import "../style/pasteList.scss";
 
 const mapToProps = ({ pastes }) => ({ pastes });

@@ -11,7 +11,10 @@ const initialState = {
   pasteSocket: "",
   pastes: "",
   instaCopy: false,
-  wroteIncomingPaste: false
+  pasteInputField: null,
+  readClipboard: false,
+  flashMessage: false,
+  messageContent: ""
 };
 
 const store = createStore(initialState);
