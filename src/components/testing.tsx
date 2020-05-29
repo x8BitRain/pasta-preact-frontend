@@ -4,7 +4,8 @@ import store from "../util/Store";
 //import cable from "actioncable";
 import { getClipboardContents } from "../util/clipboardSync";
 import "../style/pasteInput.scss";
-const isProd = window.location.href.includes("app");
+let isProd = window.location.href.includes("app");
+isProd = true;
 class Testing extends Component {
   constructor() {
     super();

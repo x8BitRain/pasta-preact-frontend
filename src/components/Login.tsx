@@ -4,6 +4,7 @@ import endpoints from "../util/endpoints";
 import store from "../util/Store";
 import delay from "../util/delay";
 //import anime from 'animejs/lib/anime.es.js';
+import scrollToBottom from "../util/scrollToBottom";
 import checkLogin from "../util/checkLogin";
 import PasteSocket from "../util/Websocket";
 import getPastes from "../util/getPastes";
@@ -57,9 +58,12 @@ class Login extends Component {
           getPastes(token)
             .then(response => {
               const pastes = response.data;
-              store.setState({
-                pastes: pastes
-              });
+              (async () => {
+                await store.setState({
+                  pastes: pastes
+                });
+                scrollToBottom();
+              })();
             })
             .catch(reason => console.log(reason.message));
         })

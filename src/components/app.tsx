@@ -5,6 +5,7 @@ import Slideout from "slideout";
 import "../style/sidePanel.scss";
 import store from '../util/Store';
 import Navbar from "./Navbar";
+import { getClipboardContents } from "../util/clipboardSync";
 import PasteInput from './PasteInput';
 import PasteList from "./PasteList";
 import Settings from "./Settings";
@@ -28,12 +29,26 @@ class App extends Component {
     console.log(e)
   }
 
+  toggleMenu = () => {
+    this.slideout.toggle();
+  }
+
+  readClipboard = () => {
+    window.addEventListener('focus', async () => {
+      if (store.getState().readClipboard) {
+        store.getState().pasteInputField.value = await getClipboardContents();
+      }
+    });
+  };
+
   componentDidMount() {
-    const slideout = new Slideout({
+    
+    this.readClipboard();
+    this.slideout = new Slideout({
       panel: document.getElementById("app"),
       menu: document.getElementById("side-panel"),
       padding: 256,
-      tolerance: 70
+      tolerance: 200
     });
   }
 
@@ -45,7 +60,7 @@ class App extends Component {
       <Provider store={store}>
         <Fragment>
         <div id="app">
-          <Navbar/>
+          <Navbar menuToggle={this.toggleMenu}/>
           <Login onLoginSuccess={this.handleLogin}/>
           <Testing />
           <div id="main-container">

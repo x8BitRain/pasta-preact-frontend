@@ -41,7 +41,7 @@ class PasteInput extends Component {
 
   sendPasteManual = (event) => {
     event ? event.preventDefault() : null;
-    this.checkWebsocketInstance(pasteInputValue)
+    this.checkWebsocketInstance(pasteInputValue || this.pasteInput.current.value)
   }
 
   sendPastePaste = (event) => {
@@ -70,7 +70,11 @@ class PasteInput extends Component {
       }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    store.setState({
+      pasteInputField: this.pasteInput.current
+    });
+  }
   
   componentWillUnmount() {}
 
