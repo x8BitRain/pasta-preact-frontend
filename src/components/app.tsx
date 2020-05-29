@@ -28,8 +28,12 @@ class App extends Component {
     console.log(e)
   }
 
+  toggleMenu = () => {
+    this.slideout.toggle();
+  }
+
   componentDidMount() {
-    const slideout = new Slideout({
+    this.slideout = new Slideout({
       panel: document.getElementById("app"),
       menu: document.getElementById("side-panel"),
       padding: 256,
@@ -45,7 +49,7 @@ class App extends Component {
       <Provider store={store}>
         <Fragment>
         <div id="app">
-          <Navbar/>
+          <Navbar menuToggle={this.toggleMenu}/>
           <Login onLoginSuccess={this.handleLogin}/>
           <Testing />
           <div id="main-container">

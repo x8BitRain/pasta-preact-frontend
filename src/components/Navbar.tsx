@@ -23,6 +23,10 @@ class Navbar extends Component {
     });
   };
 
+  toggleMenu = () => {
+    this.props.menuToggle();
+  }
+
   componentDidMount() {}
 
   componentWillUnmount() {}
@@ -32,8 +36,13 @@ class Navbar extends Component {
       <Connect mapToProps={mapToProps}>
         {({ loggedIn, isLive, wroteIncomingPaste }) => (
           <div id="navbar">
-            <div id="logo">
-              <h2>PASTA</h2>
+            <div id="logo-menu-container">
+              <div id="menu-btn">
+                <span onClick={this.toggleMenu}>三</span>
+              </div>
+              <div id="logo">
+                <h2>PASTA</h2>
+              </div>
             </div>
             <div id="copied-status">
               {wroteIncomingPaste ? <Copied /> : null}

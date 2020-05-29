@@ -20,6 +20,7 @@
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     border-radius: 100px;
     transition: all .15s ease;
+    line-height: 1;
     &:hover {
       border:1px solid green;
     }
