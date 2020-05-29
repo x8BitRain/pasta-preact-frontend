@@ -33,7 +33,7 @@ class App extends Component {
       panel: document.getElementById("app"),
       menu: document.getElementById("side-panel"),
       padding: 256,
-      tolerance: 70
+      tolerance: 200
     });
   }
 

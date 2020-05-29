@@ -1,6 +1,7 @@
 import store from "./Store";
 import { clipboardWrite } from "./clipboardSync";
 import cable from "actioncable";
+import scrollToBottom from "./scrollToBottom";
 import endpoints from "./endpoints";
 class PasteSocket {
   constructor(uid, token, roomId) {
@@ -24,30 +25,36 @@ class PasteSocket {
           console.log("connected!");
           store.setState({
             isLive: true
-          })
+          });
         },
         disconnected: function() {
           console.log("disconnected!");
           store.setState({
             isLive: false
-          })
+          });
         },
         received: data => {
-          this.pastes = store.getState().pastes; 
+          this.pastes = store.getState().pastes;
           console.log("Got a Paste!", data);
-          store.setState({
-            pastes: [...this.pastes, {
-              attributes: data.content,
-              id: data.content.id
-            }]
-          });
+          (async () => {
+            await store.setState({
+              pastes: [
+                ...this.pastes,
+                {
+                  attributes: data.content,
+                  id: data.content.id
+                }
+              ]
+            });
+            scrollToBottom();
+          })();
           if (store.getState().instaCopy) {
             clipboardWrite(data.content.content);
           }
         }
       }
     );
-  };
+  }
 
   send(paste) {
     const pasteParams = {
@@ -60,8 +67,7 @@ class PasteSocket {
       }
     };
     this.consumer.send(pasteParams);
-  };
-
+  }
 }
 
 export default PasteSocket;

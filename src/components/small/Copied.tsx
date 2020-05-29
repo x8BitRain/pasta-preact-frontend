@@ -10,4 +10,4 @@ const Copied = () => {
   );
 };
 
-export default Copied;
+export default Copied; // not in use rn
