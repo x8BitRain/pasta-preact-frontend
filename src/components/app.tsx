@@ -5,6 +5,7 @@ import Slideout from "slideout";
 import "../style/sidePanel.scss";
 import store from '../util/Store';
 import Navbar from "./Navbar";
+import { getClipboardContents } from "../util/clipboardSync";
 import PasteInput from './PasteInput';
 import PasteList from "./PasteList";
 import Settings from "./Settings";
@@ -32,7 +33,17 @@ class App extends Component {
     this.slideout.toggle();
   }
 
+  readClipboard = () => {
+    window.addEventListener('focus', async () => {
+      if (store.getState().readClipboard) {
+        store.getState().pasteInputField.value = await getClipboardContents();
+      }
+    });
+  };
+
   componentDidMount() {
+    
+    this.readClipboard();
     this.slideout = new Slideout({
       panel: document.getElementById("app"),
       menu: document.getElementById("side-panel"),

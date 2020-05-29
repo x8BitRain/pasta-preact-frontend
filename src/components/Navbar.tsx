@@ -2,13 +2,14 @@ import { Connect } from "redux-zero/preact";
 import { Component, h } from "preact";
 import store from "../util/Store";
 import LiveIndicator from "./small/LiveIndicator";
-import Copied from "./small/Copied";
+import Message from "./small/Message";
 import "../style/navbar.scss";
 
-const mapToProps = ({ loggedIn, isLive, wroteIncomingPaste }) => ({
+const mapToProps = ({ loggedIn, isLive, flashMessage, messageContent }) => ({
   loggedIn,
   isLive,
-  wroteIncomingPaste
+  flashMessage,
+  messageContent
 });
 class Navbar extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class Navbar extends Component {
   render() {
     return (
       <Connect mapToProps={mapToProps}>
-        {({ loggedIn, isLive, wroteIncomingPaste }) => (
+        {({ loggedIn, isLive, flashMessage, messageContent }) => (
           <div id="navbar">
             <div id="logo-menu-container">
               <div id="menu-btn">
@@ -45,7 +46,7 @@ class Navbar extends Component {
               </div>
             </div>
             <div id="copied-status">
-              {wroteIncomingPaste ? <Copied /> : null}
+              {flashMessage ? <Message message={messageContent} /> : null}
             </div>
             <div id="status">
               {!loggedIn ? (
