@@ -38,8 +38,8 @@ class Navbar extends Component {
         {({ loggedIn, isLive, flashMessage, messageContent }) => (
           <div id="navbar">
             <div id="logo-menu-container">
-              <div id="menu-btn">
-                <span onClick={this.toggleMenu}>三</span>
+              <div onClick={this.toggleMenu} id="menu-btn">
+                <span>三</span>
               </div>
               <div id="logo">
                 <h2>PASTA</h2>

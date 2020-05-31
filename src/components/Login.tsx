@@ -30,7 +30,7 @@ class Login extends Component {
       checkLogin(token)
         .then(response => {
           const data = response.data;
-          // console.log(data);
+          //console.log(data);
           // instead check response against typescript structure perhaps.
           if (data.id) {
             // Init websocket connection & subscribe.
@@ -44,17 +44,30 @@ class Login extends Component {
               loginResult: "Logged in ✔️",
               loginStyle: "green"
             });
+            // Write user data to store.
             store.setState({
               token: token,
               uid: data.id,
               loggedIn: true,
               rooms: data.attributes.rooms[0].id,
+              settings: data.attributes.settings,
               pasteSocket: socket
+            });
+            // Write settings to store if settings sync option is true.
+            const settings = data.attributes.settings;
+            settings.syncSettings
+              ? localStorage.setItem("settings", JSON.stringify(settings))
+              : null;
+            store.setState({
+              autoClipboardRead: settings.autoClipboardRead,
+              autoClipboardWrite: settings.autoClipboardWrite,
+              syncSettings: settings.syncSettings
             });
             this.hideLogin();
           }
         })
         .then(() => {
+          // Get pastes from backend and push them into store.
           getPastes(token)
             .then(response => {
               const pastes = response.data;
