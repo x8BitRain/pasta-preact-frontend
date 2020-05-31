@@ -10,13 +10,15 @@
     display:flex;
     //pointer-events:none;
     cursor: pointer;
-    #logo, #menu-btn {
-      margin-left:25px;
-    }
     #menu-btn {
-      align-self: center;
+      // align-self: center;
       font-weight: bold;
       font-size: 1.2em;
+      height: 2em;
+      width: 3em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
   #login-button {
