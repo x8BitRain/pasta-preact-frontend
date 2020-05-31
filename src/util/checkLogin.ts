@@ -1,6 +1,6 @@
 import endpoints from "./endpoints";
 
-async function checkLogin(token) {
+const checkLogin = async token => {
   const headers = new Headers();
   headers.append("Authorization", token);
 
@@ -12,7 +12,8 @@ async function checkLogin(token) {
 
   const response = await fetch(endpoints.getCurrentUser, requestOptions);
   const data = await response.json();
+  console.log(data);
   return data;
-}
+};
 
 export default checkLogin;
