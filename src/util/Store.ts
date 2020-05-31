@@ -10,9 +10,10 @@ const initialState = {
   isLive: false,
   pasteSocket: "",
   pastes: "",
-  instaCopy: false,
+  autoClipboardRead: false,
+  autoClipboardWrite: false,
+  syncSettings: false,
   pasteInputField: null,
-  readClipboard: false,
   flashMessage: false,
   messageContent: ""
 };

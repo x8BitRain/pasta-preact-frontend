@@ -48,7 +48,7 @@ class PasteSocket {
             });
             scrollToBottom();
           })();
-          if (store.getState().instaCopy) {
+          if (store.getState().autoClipboardWrite) {
             clipboardWrite(data.content.content);
           }
         }

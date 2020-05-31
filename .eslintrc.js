@@ -23,6 +23,8 @@ module.exports = {
     },
     rules: {
         "react/no-unknown-property": ["error", { ignore: ["class"] }],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/interface-name-prefix": "off"
     },
     settings: {
         react: {
@@ -32,9 +34,9 @@ module.exports = {
     },
     overrides: [
         {
-            files: ["*.js"],
+            files: ["*.js", "*.ts"],
             rules: {
-                "@typescript-eslint/explicit-function-return-type": "off",
+                "@typescript-eslint/explicit-function-return-type": "off"
             }
         }
     ]
