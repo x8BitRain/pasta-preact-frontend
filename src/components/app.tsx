@@ -46,7 +46,7 @@ class App extends Component {
     this.slideout = new Slideout({
       panel: document.getElementById("app"),
       menu: document.getElementById("side-panel"),
-      padding: 256,
+      padding: 333,
       tolerance: 200
     });
     JSON.parse(localStorage.getItem('settings')).autoClipboardRead ? getClipboardPermission() : null;

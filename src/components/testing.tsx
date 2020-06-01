@@ -5,7 +5,7 @@ import store from "../util/Store";
 import { getClipboardContents } from "../util/clipboardSync";
 import "../style/pasteInput.scss";
 let isProd = window.location.href.includes("app");
-//isProd = true;
+isProd = true;
 class Testing extends Component {
   constructor() {
     super();
