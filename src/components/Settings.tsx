@@ -3,6 +3,7 @@ import { Component, h, Fragment } from "preact";
 import store from "../util/Store";
 import Switch from "./small/Switch";
 import saveSettings from "../util/saveSettings";
+import camelize from "../util/camelizer";
 import "../style/settings.scss";
 import { getClipboardPermission } from "../util/clipboardSync";
 
@@ -10,11 +11,13 @@ const mapToProps = ({
   loggedIn,
   autoClipboardRead,
   autoClipboardWrite,
+  clickableLinks,
   syncSettings
 }) => ({
   loggedIn,
   autoClipboardRead,
   autoClipboardWrite,
+  clickableLinks,
   syncSettings
 });
 
@@ -52,8 +55,17 @@ class Settings extends Component {
     saveSettings();
   };
 
-  expandOption = e => {
-    // console.log(e);
+  enableClickableLinks = () => {
+    (async () => {
+      await store.setState({
+        clickableLinks: !store.getState().clickableLinks
+      });
+    })();
+    saveSettings();
+  };
+
+  expandOption = (e: MouseEvent | string) => {
+    console.log(e);
     const target = e.currentTarget ? e.currentTarget.dataset.settingsId : e;
     const growDiv = document.getElementById(target);
     if (growDiv.clientHeight) {
@@ -80,6 +92,7 @@ class Settings extends Component {
           loggedIn,
           autoClipboardRead,
           autoClipboardWrite,
+          clickableLinks,
           syncSettings
         }) => (
           <div id="settings">
@@ -123,6 +136,11 @@ class Settings extends Component {
                     isOn={syncSettings}
                     handleToggle={this.enableSettingsSync}
                     text={"Sync Settings"}
+                  />
+                  <Switch
+                    isOn={clickableLinks}
+                    handleToggle={this.enableClickableLinks}
+                    text={"Make links clickable"}
                   />
                 </div>
               </div>

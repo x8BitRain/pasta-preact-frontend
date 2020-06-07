@@ -1,11 +1,14 @@
+#navbar-message {
+  width:100%;
+}
 .nav-message {
   animation: fadeOut 2s;
   animation-delay: 1s;
   opacity: 1;
   // transition: visibility 0s 2s, opacity 2s linear;
-  width: fit-content;
+  width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   // transition: all .15s ease;
 }

@@ -6,7 +6,8 @@ const saveSettings = () => {
   const settings: IUpdateUserParams = {
     syncSettings: store.getState().syncSettings,
     autoClipboardRead: store.getState().autoClipboardRead,
-    autoClipboardWrite: store.getState().autoClipboardWrite
+    autoClipboardWrite: store.getState().autoClipboardWrite,
+    clickableLinks: store.getState().clickableLinks
   };
 
   console.log(settings);
