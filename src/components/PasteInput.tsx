@@ -13,7 +13,6 @@ class PasteInput extends Component {
     };
     this.sendPasteManual = this.sendPasteManual.bind(this);
     this.handlePasteInput = this.handlePasteInput.bind(this);
-    this.doThing = this.doThing.bind(this)
   }
 
   clearInput = () => {
