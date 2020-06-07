@@ -3,22 +3,32 @@
   overflow-y: auto;
   padding: 0px 30px 1rem 30px;
   background: #fafafa;
-  .copy-confirm {
-    width: 100px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-  }
+  // .copy-confirm-container {
+  //   min-width:30px;
+  // }
+  // .copy-confirm {
+  //   animation: fadeOut 2s;
+  //   animation-delay: 1s;
+  //   min-width: 30px;
+  //   display: flex;
+  //   justify-content: space-evenly;
+  //   align-items: center;
+  // }
   .paste-container {
     display: flex;
   }
+  h3, a {
+    margin-bottom:3px;
+  }
   .paste {
+    overflow-wrap: break-word;
     margin: 20px 15px 20px 0px;
-    padding: 10px 22px 10px 22px;
+    padding: 0.9em 22px 0.9em 22px;
     border: 1px #e1e1e1 solid;
-    width: fit-content;
+    max-width: fit-content;
+    min-width: 200px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-    border-radius: 100px;
+    border-radius: 4vmax;
     transition: all .15s ease;
     line-height: 1;
     &:hover {
@@ -26,6 +36,29 @@
     }
   }
   .hide {
-    opacity:0;
+    display:none;
   }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1 }
+  100% { opacity: 0 }
+}
+
+@media only screen and (max-width: 400px) {
+  #paste-list {
+    padding: 0px 10px 1rem 15px;
+    .paste {
+      padding:16px 22px 16px 22px;
+    }
+    // .copy-confirm p {
+    //   display:none;
+    // }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  // .copy-confirm p {
+  //   display:none;
+  // }
 }

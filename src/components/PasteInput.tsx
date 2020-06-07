@@ -34,10 +34,6 @@ class PasteInput extends Component {
       this.clearInput();
     }
   }
-  
-  doThing() {
-    console.log(this.checkWebsocketInstance()); 
-  }
 
   sendPasteManual = (event) => {
     event ? event.preventDefault() : null;

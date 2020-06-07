@@ -1,6 +1,58 @@
 #settings {
-  margin:25px;
+  // margin:20px;
   display: block;
   background: #2f2f2f;
   color: white;
- }
+  .settings-category {
+    margin-bottom:3px;
+    background-color: #494949;
+    padding: 20px 30px 20px 30px;
+    button {
+      width: 100%;
+      text-align: left;
+      line-height: 1em;
+      padding:0;
+      outline:none;
+      border: none;
+      background: none;
+      color: white;
+      font-weight: 900;
+      font-size: 20px;
+    }
+    .btn-img {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      img {
+        // margin-right: 48px;
+        margin-right: 50px;
+      }
+    }
+  }
+}
+
+#more-button {
+  border-style: none;
+  background: none;
+  font: 16px Serif;
+  color: blue;
+  margin: 0 0 10px 0;
+}
+
+.settings-category-content input:checked {
+  color: red;
+}
+
+#more-button:hover {
+  color: black;
+}
+
+.settings-category-content {
+  .measuringWrapper .switch:first-child {
+    padding-top: 15px;
+  }
+  padding-left: 4px;
+  transition: height .3s;
+  height: 0;
+  overflow: hidden;
+}

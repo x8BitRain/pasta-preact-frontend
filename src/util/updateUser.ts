@@ -23,6 +23,9 @@ const updateUser = async (
           : undefined,
         autoClipboardRead: parameters.autoClipboardRead
           ? parameters.autoClipboardRead
+          : undefined,
+        clickableLinks: parameters.clickableLinks
+          ? parameters.clickableLinks
           : undefined
       }
     }

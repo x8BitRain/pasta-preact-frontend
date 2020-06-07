@@ -61,6 +61,7 @@ class Login extends Component {
             store.setState({
               autoClipboardRead: settings.autoClipboardRead,
               autoClipboardWrite: settings.autoClipboardWrite,
+              clickableLinks: settings.clickableLinks,
               syncSettings: settings.syncSettings
             });
             this.hideLogin();
@@ -159,9 +160,6 @@ class Login extends Component {
 
   componentDidMount() {
     this.afterLogin();
-    // store.setState({
-    //   loginBox: this.loginBox
-    // })
   }
 
   componentWillUnmount() {}
@@ -226,25 +224,3 @@ class Login extends Component {
 }
 
 export default Login;
-
-// store.setState({
-//   token: result.token,
-//   email: result.email,
-//   userId: result.userId,
-//   loggedIn: true
-// });
-// this.setState(
-//   {
-//     loginResult: "Logged in ✔️"
-//   },
-//   () => {
-//     this.loginCallback();
-//     getPastes(result.token).then(response => {
-//       const pastes = response.data;
-//       console.log(pastes);
-//       store.setState({
-//         pastes: pastes
-//       });
-//     });
-//   }
-// );
