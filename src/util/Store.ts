@@ -13,6 +13,7 @@ const initialState = {
   autoClipboardRead: false,
   autoClipboardWrite: false,
   syncSettings: false,
+  clickableLinks: false,
   pasteInputField: null,
   flashMessage: false,
   messageContent: ""

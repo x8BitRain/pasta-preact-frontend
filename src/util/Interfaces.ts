@@ -4,6 +4,7 @@ interface IUpdateUserParams {
   syncSettings: boolean;
   autoClipboardWrite: boolean;
   autoClipboardRead: boolean;
+  clickableLinks: boolean;
 }
 
 export default IUpdateUserParams;

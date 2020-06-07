@@ -37,7 +37,7 @@ class Navbar extends Component {
       <Connect mapToProps={mapToProps}>
         {({ loggedIn, isLive, flashMessage, messageContent }) => (
           <div id="navbar">
-            <div id="logo-menu-container">
+            <div id="navbar-container">
               <div onClick={this.toggleMenu} id="menu-btn">
                 <span>三</span>
               </div>
@@ -45,7 +45,7 @@ class Navbar extends Component {
                 <h2>PASTA</h2>
               </div>
             </div>
-            <div id="copied-status">
+            <div id="navbar-message">
               {flashMessage ? <Message message={messageContent} /> : null}
             </div>
             <div id="status">

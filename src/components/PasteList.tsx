@@ -1,8 +1,9 @@
 import { Connect } from "redux-zero/preact";
 import { Component, h, createRef } from "preact";
 import copy from "clipboard-copy";
-import delay from "../util/delay";
-//import store from "../util/Store";
+import store from "../util/Store";
+import isValidUrl from "../util/isValidUrl";
+import flashMessage from "../util/flashMessage";
 import "../style/pasteList.scss";
 
 const mapToProps = ({ pastes }) => ({ pastes });
@@ -10,22 +11,29 @@ class PasteList extends Component {
   pasteList = createRef();
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      clickableLinks: store.getState().clickableLinks
+    };
   }
 
-  copyPaste = e => {
-    e.preventDefault();
-    console.log(this.pasteList);
-    const copyConfirmDiv = e.currentTarget.parentElement.children[1];
+  copyPaste = (e: any) => {
+    this.state.clickableLinks ? null : e.preventDefault();
     copy(e.currentTarget.children[0].innerText)
-      .then(async () => {
+      .then(() => {
         console.log("copied!");
-        copyConfirmDiv.classList.toggle("hide");
-        await delay(1000);
-        copyConfirmDiv.classList.toggle("hide");
+        flashMessage({
+          content: "Copied to clipboard",
+          type: true,
+          delay: 2000
+        });
       })
       .catch(error => {
         console.log("Copy failed", error);
+        flashMessage({
+          content: "Could not copy to clipboard" + error,
+          type: true,
+          delay: 2000
+        });
       });
   };
 
@@ -46,11 +54,18 @@ class PasteList extends Component {
               ? pastes.map((value, index) => (
                   <div id={value.id} class="paste-container" key={index}>
                     <div onClick={this.copyPaste} class="paste">
-                      <h3>{value.attributes.content}</h3>
-                    </div>
-                    <div className="copy-confirm hide">
-                      <p>Copied</p>
-                      <img src="../assets/icons/check.svg" />
+                      {isValidUrl(value.attributes.content) &&
+                      store.getState().clickableLinks ? (
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={value.attributes.content}
+                        >
+                          {value.attributes.content}
+                        </a>
+                      ) : (
+                        <h3>{value.attributes.content}</h3>
+                      )}
                     </div>
                   </div>
                 ))
