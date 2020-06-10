@@ -14,6 +14,7 @@ const initialState = {
   autoClipboardWrite: false,
   syncSettings: false,
   clickableLinks: false,
+  rememberMe: true,
   pasteInputField: null,
   flashMessage: false,
   messageContent: ""

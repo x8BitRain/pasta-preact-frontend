@@ -2,6 +2,7 @@
 import { Component, h, createRef } from "preact";
 import store from '../util/Store';
 import PasteSocket from '../util/Websocket';
+import { getClipboardContents } from "../util/clipboardSync";
 import '../style/pasteInput.scss';
 let pasteInputValue = "";
 class PasteInput extends Component {
@@ -36,7 +37,13 @@ class PasteInput extends Component {
 
   sendPasteManual = (event) => {
     event ? event.preventDefault() : null;
-    this.checkWebsocketInstance(pasteInputValue || this.pasteInput.current.value)
+    if (this.pasteInput.current.value === "") {
+      getClipboardContents().then(content => {
+        this.checkWebsocketInstance(content);
+      })
+    } else {
+      this.checkWebsocketInstance(pasteInputValue || this.pasteInput.current.value)
+    }
   }
 
   sendPastePaste = (event) => {

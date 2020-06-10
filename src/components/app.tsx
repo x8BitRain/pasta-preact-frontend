@@ -47,7 +47,7 @@ class App extends Component {
       panel: document.getElementById("app"),
       menu: document.getElementById("side-panel"),
       padding: 320,
-      tolerance: 200
+      tolerance: 130
     });
     JSON.parse(localStorage.getItem('settings')).autoClipboardRead ? getClipboardPermission() : null;
   }

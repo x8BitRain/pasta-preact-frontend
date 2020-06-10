@@ -11,13 +11,11 @@ class PasteList extends Component {
   pasteList = createRef();
   constructor(props) {
     super(props);
-    this.state = {
-      clickableLinks: store.getState().clickableLinks
-    };
+    this.state = {};
   }
 
   copyPaste = (e: any) => {
-    this.state.clickableLinks ? null : e.preventDefault();
+    store.getState().clickableLinks ? null : e.preventDefault();
     copy(e.currentTarget.children[0].innerText)
       .then(() => {
         console.log("copied!");
@@ -57,6 +55,7 @@ class PasteList extends Component {
                       {isValidUrl(value.attributes.content) &&
                       store.getState().clickableLinks ? (
                         <a
+                          class="paste-text"
                           target="_blank"
                           rel="noopener noreferrer"
                           href={value.attributes.content}
@@ -64,7 +63,7 @@ class PasteList extends Component {
                           {value.attributes.content}
                         </a>
                       ) : (
-                        <h3>{value.attributes.content}</h3>
+                        <p class="paste-text">{value.attributes.content}</p>
                       )}
                     </div>
                   </div>
