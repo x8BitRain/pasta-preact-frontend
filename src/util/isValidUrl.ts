@@ -1,3 +1,5 @@
+// OFFLOAD TO BACKEND
+
 const isValidUrl = (string: string) => {
   try {
     new URL(string);
