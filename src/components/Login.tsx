@@ -19,7 +19,8 @@ class Login extends Component {
       email: "",
       password: "",
       loginResult: "Login",
-      loginStyle: "#444444"
+      loginStyle: "#444444",
+      rememberMe: false
     };
   }
 
@@ -158,6 +159,12 @@ class Login extends Component {
     });
   };
 
+  rememberMe = () => {
+    store.setState({
+      rememberMe: !store.getState().rememberMe
+    })
+  };
+
   componentDidMount() {
     this.afterLogin();
   }
@@ -208,7 +215,12 @@ class Login extends Component {
                       )}
                     </button>
                     <div id="remember-me">
-                      <input type="checkbox" name="remember" checked />
+                      <input
+                        type="checkbox"
+                        name="remember"
+                        onChange={this.rememberMe}
+                        checked
+                      />
                       <label htmlFor="remember">Remember me</label>
                     </div>
                   </div>

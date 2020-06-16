@@ -79,7 +79,7 @@ class Settings extends Component {
   };
 
   componentDidMount() {
-    this.expandOption("paste-settings");
+    this.expandOption("clipboard-settings");
     this.expandOption("app-settings");
   }
 
@@ -98,14 +98,14 @@ class Settings extends Component {
           <div id="settings">
             <div class="settings-category">
               <div
-                data-settings-id="paste-settings"
+                data-settings-id="clipboard-settings"
                 onClick={this.expandOption}
                 class="btn-img"
               >
                 <img src="../assets/icons/clipboard-white.svg" alt="" />
-                <button id="paste-settings-btn">Paste Settings</button>
+                <button id="clipboard-settings-btn">Clipboard Settings</button>
               </div>
-              <div id="paste-settings" class="settings-category-content">
+              <div id="clipboard-settings" class="settings-category-content">
                 <div class="measuringWrapper">
                   <Switch
                     isOn={autoClipboardWrite}
@@ -128,7 +128,7 @@ class Settings extends Component {
                 class="btn-img"
               >
                 <img src="../assets/icons/cog.svg" alt="" />
-                <button id="paste-settings-btn">App Settings</button>
+                <button id="clipboard-settings-btn">App Settings</button>
               </div>
               <div id="app-settings" class="settings-category-content">
                 <div class="measuringWrapper">
